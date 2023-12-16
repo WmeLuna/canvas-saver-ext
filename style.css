@@ -1,0 +1,7 @@
+.incorrect-answer {
+   color: red !important;
+}
+
+.correct-answer {
+   color: #00db00 !important;
+}
