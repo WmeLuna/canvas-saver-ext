@@ -90,11 +90,30 @@ export class Displayer {
       if (!answer) {
          return;
       }
+      //console.log(answer)
+      // Removed as this is untrue, apperently partial credit is not a thing for this question type
+      // if the attempt was incorrect with a 0 for points, none marked are correct choices
+      /*let wrong = answers[questionID].attemptedAnswers.filter(o=>!o.correct&&o.points==0)
+      for (let i = 0; i < wrong.length; i++) {
+         for (let answerProperty in wrong[i]) {
+            if (answerProperty.includes('answer_') && wrong[i][answerProperty] == '1') {
+               const answerID = `question_${questionID}_${answerProperty}`;
+               const el = document.getElementById(answerID);
+               console.log(el, answerProperty)
+               el.parentElement.nextElementSibling.setAttribute("qsaver-status","incorrect-answer")
+            }
+         }
+      }*/
 
+      if (!answer.correct) return
       for (let answerProperty in answer) {
          if (answerProperty.includes('answer_')) {
             const answerID = `question_${questionID}_${answerProperty}`;
-						if (document.getElementById(answerID)) document.getElementById(answerID).checked = parseInt(answer[answerProperty]);
+            const el = document.getElementById(answerID);
+						if (el) {
+               el.checked = parseInt(answer[answerProperty]);
+               if (el.checked) el.parentElement.nextElementSibling.setAttribute("qsaver-status","correct-answer")
+            }
          }
       }
    }
@@ -125,6 +144,7 @@ export class Displayer {
       }
 
       if (!isIncorrectChoice(el)) {
+         el.parentElement.nextElementSibling.setAttribute("qsaver-status","correct-answer")
          el.checked = true;
       }
 

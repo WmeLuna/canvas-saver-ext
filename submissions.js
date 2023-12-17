@@ -29,7 +29,7 @@ export async function getQuizSubmissions(courseID, quizID, baseURL) {
         .then((res) => JSON.parse(res)))
     })
     .then((res) => {
-				// sendSubmission(courseID, quizID, cleanSubs(res.submission_history))
+				sendSubmission(courseID, quizID, cleanSubs(res.submission_history))
 				return storeSubmissions(courseID,quizID,res.submission_history);
         return res.submission_history;
     }))
@@ -65,12 +65,12 @@ function cleanSubs(submissions) {
 
 async function sendSubmission(courseID, quizID, submission) {
 	let body = {
-		hostname: window.location.host,
+		host: window.location.host,
 		courseID: courseID,
 		quizID: quizID,
 		submission: submission
 	}
-		const response = await fetch('http://localhost:3000/add-submission', {
+		const response = await fetch('https://canvasapi.wmeluna.repl.co/add-submission', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
