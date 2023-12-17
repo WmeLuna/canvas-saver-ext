@@ -49,15 +49,27 @@ export default function display(answers) {
 
          const earnedPoints = Math.round(answer.points * 100) / 100;
          if (earnedPoints == parseFloat(pointHolders[i].innerText)) {
-            pointHolders[i].classList.add("correct-answer");
+            pointHolders[i].setAttribute("qsaver-status","correct-answer");
          } else {
-            pointHolders[i].classList.add("incorrect-answer");
+            pointHolders[i].setAttribute("qsaver-status","incorrect-answer");
          }
-         pointHolders[i].innerText = `${earnedPoints} out of ${pointHolders[i].innerText}`;
+         pointHeader(pointHolders[i],`${earnedPoints}/`);
       } else {
-         pointHolders[i].innerText = `(New Question) ${pointHolders[i].innerText}`;
+				pointHeader(pointHolders[i], `(New Question) `);
       }
    }
+}
+
+//pointHeader(pointHolders[i], 'text')
+function pointHeader (holder, pre) {
+	let preEl = holder.parentNode.querySelector('#qsaver-clone')
+	if (!preEl) {
+		preEl = holder.cloneNode(true)
+		preEl.id = 'qsaver-clone'
+		holder.parentNode.insertBefore(preEl, holder.nextSibling)
+	}
+	preEl.innerText = pre
+	preEl.setAttribute("qsaver-status", holder.getAttribute("qsaver-status"))
 }
 
 export class Displayer {
@@ -69,7 +81,7 @@ export class Displayer {
       for (let answerProperty in answer) {
          if (answerProperty.includes('answer_')) {
             const answerID = `question_${questionID}_${answerProperty}`;
-            document.getElementById(answerID).value = answer[answerProperty];
+            if (document.getElementById(answerID)) document.getElementById(answerID).value = answer[answerProperty];
          }
       }
    }
@@ -82,7 +94,7 @@ export class Displayer {
       for (let answerProperty in answer) {
          if (answerProperty.includes('answer_')) {
             const answerID = `question_${questionID}_${answerProperty}`;
-            document.getElementById(answerID).checked = parseInt(answer[answerProperty]);
+						if (document.getElementById(answerID)) document.getElementById(answerID).checked = parseInt(answer[answerProperty]);
          }
       }
    }
@@ -97,7 +109,7 @@ export class Displayer {
          for (let answerID of answer.attemptedAnswers) {
             const answerIDStr = `question_${questionID}_answer_${answerID}`;
             const el = document.getElementById(answerIDStr)
-            el.parentElement.nextElementSibling.className += ' incorrect-answer';
+            el.parentElement.nextElementSibling.setAttribute("qsaver-status","incorrect-answer");
          }
       }
 

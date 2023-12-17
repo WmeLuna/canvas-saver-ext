@@ -4,12 +4,9 @@ export function getCorrectAnswers(submissions) {
    let parsedSubmissions = {};
    let submission = restructureSubmission(submissions[0]);
 
-   if (!submission) {
-      return null;
-   }
-
    for (let i = 0; i < submissions.length; i++) {
       submission = restructureSubmission(submissions[i]);
+			if (!submission) continue;
       for (let questionID in submission) {
          const question = submission[questionID]
 

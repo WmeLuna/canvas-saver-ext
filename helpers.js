@@ -21,7 +21,7 @@ export function getPointElements() {
 }
 
 export function isIncorrectChoice(el) {
-    return el.parentElement.nextElementSibling.className.includes('incorrect-answer');
+    return el.parentElement.nextElementSibling.getAttribute('qsaver-status') == "incorrect-answer";
 }
 
 export function getQuestionIDs() {

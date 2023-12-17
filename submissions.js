@@ -37,12 +37,13 @@ export async function getQuizSubmissions(courseID, quizID, baseURL) {
 
 function storeSubmissions(courseID, quizID, submissions){
 	let CANVquiz = JSON.parse(localStorage.getItem('CANVquiz'))
+	if (!submissions) return CANVquiz[courseID][quizID]
 	// Initialize Store, Course  
 	CANVquiz ??= {} 
 	CANVquiz[courseID] = typeof CANVquiz[courseID] == 'undefined' ? {} : CANVquiz[courseID]
 	// Save SubHistory
 	CANVquiz[courseID][quizID] ??= []
-	CANVquiz[courseID][quizID] = [...CANVquiz[courseID][quizID], ...cleanSubs(submissions)]
+	CANVquiz[courseID][quizID] = [...cleanSubs(CANVquiz[courseID][quizID]), ...cleanSubs(submissions)]
 	// dedupe https://stackoverflow.com/a/70406623
 	// currently redundant, but will be useful when adding in shared responses
 	CANVquiz[courseID][quizID] = [...new Map(CANVquiz[courseID][quizID].map(v => [JSON.stringify(v), v])).values()]
@@ -52,7 +53,9 @@ function storeSubmissions(courseID, quizID, submissions){
 }
 
 function cleanSubs(submissions) {
-	return submissions.map(submission => {
+	return submissions
+	  .filter(submission => submission.submission_data != null)
+	  .map(submission => {
 		return {
 			submission_data: submission.submission_data
 		};

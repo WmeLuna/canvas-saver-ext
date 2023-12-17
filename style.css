@@ -1,7 +1,7 @@
-.incorrect-answer {
+[qsaver-status="incorrect-answer"] {
    color: red !important;
 }
 
-.correct-answer {
+[qsaver-status="correct-answer"] {
    color: #00db00 !important;
 }
