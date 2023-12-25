@@ -1,3 +1,1 @@
-- render instantly if cached
-- rerender on new data
 - formula questions have been temp removed as the question could be variable, find a way to make sure the numbers match in the formula before running ans

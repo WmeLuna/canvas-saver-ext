@@ -5,6 +5,7 @@ import display from './display.js';
 loadQuiz();
 
 async function loadQuiz() {
+	  let CANVquiz = JSON.parse(localStorage.getItem('CANVquiz'))
     const currentURL = window.location.href;
     const courseID = currentURL.split('courses/')[1].split('/')[0];
     const quizID = currentURL.split('quizzes/')[1].split('/')[0];
@@ -17,15 +18,23 @@ async function loadQuiz() {
         console.error('Unable to retrieve quiz id');
     }
 
-    const submissions = await getQuizSubmissions(courseID, quizID, baseURL);
-    const correctAnswers = getCorrectAnswers(submissions);
+		getQuizSubmissions(courseID, quizID, baseURL)
+    //const submissions = getQuizSubmissions(courseID, quizID, baseURL);
+    //const correctAnswers = getCorrectAnswers(submissions);
+		if (!!CANVquiz?.[courseID]?.[quizID]) {
+			const correctAnswers = getCorrectAnswers(CANVquiz[courseID][quizID])
+			if (correctAnswers) {
+				display(correctAnswers);
+			}
+		}
 
-    if (!correctAnswers) {
-        return null;
-    }
-
-    display(correctAnswers);
-    display(correctAnswers);
+		window.addEventListener('storage', function(event) {
+			if (event.key === 'CANVquiz') {
+				CANVquiz = JSON.parse(localStorage.getItem('CANVquiz'))
+				console.log('CANVquiz changed in localStorage');
+				display(getCorrectAnswers(CANVquiz[courseID][quizID]));
+			}
+		});
 };
 
 const script = document.createElement('script');

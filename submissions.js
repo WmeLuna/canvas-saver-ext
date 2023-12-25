@@ -49,6 +49,7 @@ function storeSubmissions(courseID, quizID, submissions){
 	CANVquiz[courseID][quizID] = [...new Map(CANVquiz[courseID][quizID].map(v => [JSON.stringify(v), v])).values()]
 	localStorage.setItem('CANVquiz', JSON.stringify(CANVquiz))
 	//sendSubmission(courseID, quizID, CANVquiz[courseID][quizID])
+	window.dispatchEvent(new StorageEvent('storage', { key: 'CANVquiz', newValue: localStorage.getItem('CANVquiz'), url: window.location.href }));
 	return CANVquiz[courseID][quizID]
 }
 
