@@ -21,7 +21,7 @@ jobs:
           crxFilePath: 'build/extension.crx'
           privateKey: ${{ secrets.CHROME_CRX_PRIVATE_KEY }}
           updateXmlPath: 'build/update.xml'
-          updateXmlCodebaseUrl: 'https://server.com/extension.crx'
+          updateXmlCodebaseUrl: 'https://wmeluna.com/canvas-saver-ext/extension.crx'
           
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
