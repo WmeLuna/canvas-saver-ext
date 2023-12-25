@@ -14,9 +14,9 @@
     "content_scripts": [
         {
             "matches": [
-                "*://*.instructure.com/courses/*/quizzes/*/take*",
-                "*://*.edu/courses/*/quizzes/*/take*",
-                "*://*/courses/*/quizzes/*/take*"
+                "*://*.instructure.com/courses/*/quizzes/*",
+                "*://*.edu/courses/*/quizzes/*",
+                "*://*/courses/*/quizzes/*"
 
             ],
             "js": [
@@ -27,12 +27,10 @@
             ]
         }
     ],
-		"permissions": [
-			"https://tan-precious-bass.cyclic.app/*"
-		],
     "web_accessible_resources": [
         "index.js",
         "quiz_loader.js",
+        "quiz_saver.js",
         "submissions.js",
         "helpers.js",
         "answers.js",

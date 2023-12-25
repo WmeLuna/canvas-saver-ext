@@ -27,6 +27,9 @@ export default function display(answers) {
          switch (questionType) {
             case qt.ESSAY_QUESTION:
                displayer.displayEssay(answer, questionID);
+						case qt.MULTIPLE_DROPDOWN:
+							 displayer.displayMultipleDropdown(answer, questionID)
+							 break
             case qt.MATCHING:
                displayer.displayMatching(answer, questionID);
                break;
@@ -38,7 +41,7 @@ export default function display(answers) {
                displayer.displayMultipleChoise(answer, questionID);
                break;
             case qt.FILL_IN_BLANK:
-            case qt.FORMULA_QUESTION:
+            //case qt.FORMULA_QUESTION:
             case qt.NUMERICAL_ANSWER:
                displayer.displayFillInBlank(answer, questionID);
                break;
@@ -77,6 +80,7 @@ export class Displayer {
       if (!answer) {
          return;
       }
+			if (!answer.correct) return
 
       for (let answerProperty in answer) {
          if (answerProperty.includes('answer_')) {
@@ -85,25 +89,26 @@ export class Displayer {
          }
       }
    }
+	 displayMultipleDropdown (answer, questionID) {
+		if (!answer) {
+			return;
+	 	}
+		if (!answer.correct) return
+		for (let answerProperty in answer) {
+			if (answerProperty.includes('answer_id')){
+				const answerSelector = `select.question_input[name^="question_${questionID}"]:has(option[value="${answer[answerProperty]}"])`
+				const el = document.querySelector(answerSelector)
+				if (el) {
+					el.value = answer[answerProperty]
+				}
+			}
+		}
+	 }
 
    displayMultipleAnswer(answer, questionID) {
       if (!answer) {
          return;
       }
-      //console.log(answer)
-      // Removed as this is untrue, apperently partial credit is not a thing for this question type
-      // if the attempt was incorrect with a 0 for points, none marked are correct choices
-      /*let wrong = answers[questionID].attemptedAnswers.filter(o=>!o.correct&&o.points==0)
-      for (let i = 0; i < wrong.length; i++) {
-         for (let answerProperty in wrong[i]) {
-            if (answerProperty.includes('answer_') && wrong[i][answerProperty] == '1') {
-               const answerID = `question_${questionID}_${answerProperty}`;
-               const el = document.getElementById(answerID);
-               console.log(el, answerProperty)
-               el.parentElement.nextElementSibling.setAttribute("qsaver-status","incorrect-answer")
-            }
-         }
-      }*/
 
       if (!answer.correct) return
       for (let answerProperty in answer) {
@@ -166,6 +171,7 @@ export class Displayer {
       if (!answer) {
          return;
       }
+			if (!answer.correct) return
 
       let element = null;
       const elements = document.getElementsByName(`question_${questionID}`);
@@ -205,6 +211,7 @@ export class Displayer {
       if (!answer) {
          return;
       }
+			if (!answer.correct) return
 
       const topParent = document.getElementById(`question_${questionID}_question_text`);
       const inputs = topParent.querySelectorAll('input')

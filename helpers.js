@@ -3,7 +3,7 @@ export function cleanRes(res) {
 }
 
 export function getPointElements() {
-    const pointHolders = document.getElementsByClassName('question_points_holder');
+    const pointHolders = document.querySelectorAll('.question_points_holder:not(#qsaver-clone)');
     let cleanPointHolders = [];
 
     // clean points

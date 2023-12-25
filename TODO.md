@@ -1,10 +1,3 @@
-- Allow rerenders entirely
 - render instantly if cached
 - rerender on new data
-- save submission on quiz start screen
-  - requires some rewrite as ext is currently setup to only work on active quizzes (.../take) 
-- fix renders
-  - fitb
-  - fimb
-  - matching
-  - multiple dropdown
+- formula questions have been temp removed as the question could be variable, find a way to make sure the numbers match in the formula before running ans

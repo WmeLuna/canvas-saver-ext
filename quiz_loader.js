@@ -25,6 +25,7 @@ async function loadQuiz() {
     }
 
     display(correctAnswers);
+    display(correctAnswers);
 };
 
 const script = document.createElement('script');
