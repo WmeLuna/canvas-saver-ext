@@ -4,7 +4,7 @@
     "manifest_version": 2,
     "name": "Canvas Quiz Loader",
     "short_name": "Quiz Loader",
-    "version": "0.2.4",
+    "version": "0.2.5",
     "description": "Automatically load correct answers from previous quiz attempts.",
     "icons": {
         "16": "icon16.png",
