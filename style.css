@@ -1,7 +1,6 @@
-[qsaver-status="incorrect-answer"] {
-   color: red !important;
+.question .answer_label[qsaver-status=incorrect-answer], .question .answer_label[qsaver-status=incorrect-answer] > p {
+  color: red !important;
 }
-
-[qsaver-status="correct-answer"] {
-   color: #00db00 !important;
+.question .answer_label[qsaver-status=correct-answer], .question .answer_label[qsaver-status=correct-answer] > p {
+  color: #00db00 !important;
 }

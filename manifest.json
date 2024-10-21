@@ -2,10 +2,10 @@
 "update_url": "https://wmeluna.com/canvas-saver-ext/update.xml",
 
     "manifest_version": 2,
-    "name": "Canvas Quiz Loader",
+    "name": "Canvas Quiz Sharer",
     "short_name": "Quiz Loader",
-    "version": "0.2.5",
-    "description": "Automatically load correct answers from previous quiz attempts.",
+    "version": "0.2.6",
+    "description": "Automatically load correct answers from previous quiz attempts. From you and other users.",
     "icons": {
         "16": "icon16.png",
         "48": "icon48.png",

@@ -29,7 +29,7 @@ export async function getQuizSubmissions(courseID, quizID, baseURL) {
         .then((res) => JSON.parse(res)))
     })
     .then((res) => {
-				sendSubmission(courseID, quizID, cleanSubs(res.submission_history))
+				//sendSubmission(courseID, quizID, cleanSubs(res.submission_history))
 				return storeSubmissions(courseID,quizID,res.submission_history);
         return res.submission_history;
     }))
